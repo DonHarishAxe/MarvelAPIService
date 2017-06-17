@@ -9,15 +9,15 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User {
 
+    @Id
+    @Column(name = "uname")
+    private String uname;
     @Column(name = "email")
     private String email;
     @Column(name = "fname")
     private String fname;
     @Column(name = "lname")
     private String lname;
-    @Id
-    @Column(name = "uname")
-    private String uname;
     @Column(name = "powers")
     private String powers;
     @Column(name = "isAvenger")
@@ -25,11 +25,9 @@ public class User {
     @Column(name = "isXmen")
     private boolean isXmen;
     @Column(name = "bio", length = 10000)
-    private String bio; //check, fo rthe correct datatype
+    private String bio;
     @Column(name="password")
     private String password;
-
-    //manage constructors
 
     public String getEmail() {
         return email;

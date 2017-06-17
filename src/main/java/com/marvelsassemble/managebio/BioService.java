@@ -18,7 +18,7 @@ import java.util.List;
 public class BioService {
 
     @Autowired
-    BioRepository bioRepository;
+    private BioRepository bioRepository;
 
     public List<User> getAllUserService(String squad, HttpSession session, HttpServletResponse response) {
         if(session.getAttribute("user")!=null){
@@ -36,7 +36,7 @@ public class BioService {
             dummy.setBio("I am here beacuse i am batman ! Don't care about marvel or DC");
             dummy.setXmen(false);
             dummy.setAvenger(false);
-            dummy.setPowers("I am a rich philanthropist with gadgets !");
+            dummy.setPowers("none");
             response.setStatus(403);
             return Arrays.asList(dummy);
         }

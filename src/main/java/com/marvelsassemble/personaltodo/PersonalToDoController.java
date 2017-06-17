@@ -23,19 +23,16 @@ public class PersonalToDoController {
 
     @RequestMapping(value="/{uname}", method = RequestMethod.GET)
     public List<PersonalToDo> getPersonalTodo(@PathVariable String uname, HttpSession session, HttpServletResponse response){
-        //cleanse the path variable
         return personalTodoService.getAllTodo(uname, session, response);
     }
 
     @RequestMapping(value="/{uname}", method = RequestMethod.POST)
     public void createPersonaLToDo(@RequestBody PersonalToDo todoitem, @PathVariable String uname, HttpSession session, HttpServletResponse response){
-        //clease the body and path vairable for security
         personalTodoService.createTodo(todoitem, uname, session, response);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public void completePersonalToDo(@PathVariable int id, HttpSession session, HttpServletResponse response){
-        //clease the body and path vairable for security
         personalTodoService.todoComplete(id, session, response);
     }
 

@@ -19,7 +19,7 @@ import java.util.List;
 public class BioController {
 
     @Autowired
-    BioService bioService;
+    private BioService bioService;
 
     @RequestMapping(value="/all/{squad}", method = RequestMethod.GET)
     public List<User> getAllUser(@PathVariable String squad, HttpSession session, HttpServletResponse response){

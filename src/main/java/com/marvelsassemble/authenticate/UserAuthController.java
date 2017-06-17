@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * Created by hemantv on 16/6/17.
  */
+
 @RestController
 @EnableAutoConfiguration
 @CrossOrigin(origins = "*")
@@ -18,7 +19,7 @@ import java.util.Map;
 public class UserAuthController {
 
     @Autowired
-    UserAuthService userAuthService;
+    private UserAuthService userAuthService;
 
     @RequestMapping(value="/register/avenger", method = RequestMethod.POST)
     public void createAvenger(@RequestBody User user, HttpServletResponse response){

@@ -18,7 +18,7 @@ public class PersonalToDo {
     @Column(name = "todoItem")
     private String todoItem;
     @Column(name = "setBy")
-    private String setBy; //mark as foreign key in ORM
+    private String setBy;
     @Column(name = "isActive")
     private boolean isActive;
 

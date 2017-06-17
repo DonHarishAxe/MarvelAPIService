@@ -19,7 +19,8 @@ import javax.transaction.Transactional;
 public class UserAuthService {
 
     @Autowired
-    UserAuthRepository userAuthRepository;
+    private UserAuthRepository userAuthRepository;
+    @Autowired
     private Environment env;
 
     public void createAvenger(User user, HttpServletResponse response ) {

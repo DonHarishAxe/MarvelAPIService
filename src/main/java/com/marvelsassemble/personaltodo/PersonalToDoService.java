@@ -23,8 +23,6 @@ public class PersonalToDoService {
 
     public List<PersonalToDo> getAllTodo(String uname, HttpSession session, HttpServletResponse response) {
 
-        //get a list of all and return where setBy fied is id
-        //query user by id and make user object
         if(session.getAttribute("user")!=null) {
             response.setStatus(200);
             return personalToDoRepository.findBySetBy(uname);
@@ -41,8 +39,6 @@ public class PersonalToDoService {
 
     public void createTodo(PersonalToDo todoitem, String uname, HttpSession session, HttpServletResponse response) {
 
-        //create a todo and set setBy field as FK of the user with userid id
-        //query user with id and stpre in user variable
         if(session.getAttribute("user")!=null) {
             todoitem.setSetBy(uname);
             todoitem.setActive(true);

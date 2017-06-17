@@ -15,9 +15,8 @@ import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
-@CrossOrigin(origins = "*")
 @RequestMapping("/squad")
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 public class SquadToDoController {
 
     @Autowired
@@ -25,15 +24,11 @@ public class SquadToDoController {
 
     @RequestMapping(value="/{squad}", method = RequestMethod.GET)
     public List<SquadToDo> getSquadTodo(@PathVariable String squad, HttpSession session, HttpServletResponse response){
-        //cleanse the path variable
-        //make sure path variabl eis either avenger or xmen nothin gelse
         return squadTodoService.getAll(session, response);
     }
 
     @RequestMapping(value="/{squad}/{uname}", method = RequestMethod.POST)
     public void createSquadToDo(@RequestBody SquadToDo todoitem, @PathVariable String uname, @PathVariable String squad, HttpSession session, HttpServletResponse response){
-        //clease the body and path vairable for security,
-        //make sure path variabl eis either avenger or xmen nothin gels
         squadTodoService.createTodo(todoitem, uname, squad, session, response);
     }
 

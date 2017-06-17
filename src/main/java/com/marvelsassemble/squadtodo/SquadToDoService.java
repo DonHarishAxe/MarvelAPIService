@@ -26,7 +26,7 @@ public class SquadToDoService {
     private UserAuthRepository userAuthRepository;
 
     public List<SquadToDo> getAll(HttpSession session, HttpServletResponse response) {
-        //check squad string adn apply filte
+
         if(session.getAttribute("user")!=null) {
             response.setStatus(200);
             String name = (String)session.getAttribute("user");
@@ -50,9 +50,8 @@ public class SquadToDoService {
     }
 
     public void createTodo(SquadToDo todoitem, String uname, String squad, HttpSession session, HttpServletResponse response) {
-        //check squad string and apply filter
-        //get user object by query with id store in user variable
-        if(session.getAttribute("user")!=null) {
+
+        if(session.getAttribute("user")!=null && (squad.equals("avengers") || squad.equals("xmen"))) {
             todoitem.setSetBy(uname);
             todoitem.setSquad(squad);
             todoitem.setActive(true);
