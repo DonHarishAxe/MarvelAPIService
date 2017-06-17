@@ -49,9 +49,10 @@ public class SquadToDoService {
         }
     }
 
-    public void createTodo(SquadToDo todoitem, String uname, String squad, HttpSession session, HttpServletResponse response) {
+    public void createTodo(SquadToDo todoitem, String squad, HttpSession session, HttpServletResponse response) {
 
         if(session.getAttribute("user")!=null && (squad.equals("avengers") || squad.equals("xmen"))) {
+            String uname = (String)session.getAttribute("user");
             todoitem.setSetBy(uname);
             todoitem.setSquad(squad);
             todoitem.setActive(true);

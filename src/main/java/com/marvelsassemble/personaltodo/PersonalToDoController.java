@@ -21,14 +21,14 @@ public class PersonalToDoController {
     private PersonalToDoService personalTodoService;
 
 
-    @RequestMapping(value="/{uname}", method = RequestMethod.GET)
-    public List<PersonalToDo> getPersonalTodo(@PathVariable String uname, HttpSession session, HttpServletResponse response){
-        return personalTodoService.getAllTodo(uname, session, response);
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public List<PersonalToDo> getPersonalTodo(HttpSession session, HttpServletResponse response){
+        return personalTodoService.getAllTodo(session, response);
     }
 
-    @RequestMapping(value="/{uname}", method = RequestMethod.POST)
-    public void createPersonaLToDo(@RequestBody PersonalToDo todoitem, @PathVariable String uname, HttpSession session, HttpServletResponse response){
-        personalTodoService.createTodo(todoitem, uname, session, response);
+    @RequestMapping(value="/", method = RequestMethod.POST)
+    public void createPersonaLToDo(@RequestBody PersonalToDo todoitem, HttpSession session, HttpServletResponse response){
+        personalTodoService.createTodo(todoitem, session, response);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

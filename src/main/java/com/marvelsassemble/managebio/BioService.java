@@ -42,9 +42,9 @@ public class BioService {
         }
     }
 
-    public String getAllBioService(String uname, HttpSession session, HttpServletResponse response) {
+    public String getAllBioService(HttpSession session, HttpServletResponse response) {
         if(session.getAttribute("user")!=null){
-
+            String uname = (String)session.getAttribute("user");
             User user =  bioRepository.findByUname(uname);
             if(user!=null){
                 response.setStatus(200);

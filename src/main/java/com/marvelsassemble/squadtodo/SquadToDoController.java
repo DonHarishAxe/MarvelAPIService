@@ -22,14 +22,14 @@ public class SquadToDoController {
     @Autowired
     private SquadToDoService squadTodoService;
 
-    @RequestMapping(value="/{squad}", method = RequestMethod.GET)
-    public List<SquadToDo> getSquadTodo(@PathVariable String squad, HttpSession session, HttpServletResponse response){
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public List<SquadToDo> getSquadTodo( HttpSession session, HttpServletResponse response){
         return squadTodoService.getAll(session, response);
     }
 
-    @RequestMapping(value="/{squad}/{uname}", method = RequestMethod.POST)
-    public void createSquadToDo(@RequestBody SquadToDo todoitem, @PathVariable String uname, @PathVariable String squad, HttpSession session, HttpServletResponse response){
-        squadTodoService.createTodo(todoitem, uname, squad, session, response);
+    @RequestMapping(value="/{squad}", method = RequestMethod.POST)
+    public void createSquadToDo(@RequestBody SquadToDo todoitem, @PathVariable String squad, HttpSession session, HttpServletResponse response){
+        squadTodoService.createTodo(todoitem, squad, session, response);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

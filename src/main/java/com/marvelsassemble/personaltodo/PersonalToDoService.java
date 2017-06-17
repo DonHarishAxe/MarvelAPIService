@@ -21,9 +21,10 @@ public class PersonalToDoService {
     @Autowired
     private PersonalToDoRepository personalToDoRepository;
 
-    public List<PersonalToDo> getAllTodo(String uname, HttpSession session, HttpServletResponse response) {
+    public List<PersonalToDo> getAllTodo(HttpSession session, HttpServletResponse response) {
 
         if(session.getAttribute("user")!=null) {
+            String uname = (String)session.getAttribute("user");
             response.setStatus(200);
             return personalToDoRepository.findBySetBy(uname);
         }
@@ -37,9 +38,10 @@ public class PersonalToDoService {
         }
     }
 
-    public void createTodo(PersonalToDo todoitem, String uname, HttpSession session, HttpServletResponse response) {
+    public void createTodo(PersonalToDo todoitem, HttpSession session, HttpServletResponse response) {
 
         if(session.getAttribute("user")!=null) {
+            String uname = (String)session.getAttribute("user");
             todoitem.setSetBy(uname);
             todoitem.setActive(true);
             personalToDoRepository.save(todoitem);
