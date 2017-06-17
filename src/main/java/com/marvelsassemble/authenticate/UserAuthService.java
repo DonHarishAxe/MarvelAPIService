@@ -1,8 +1,10 @@
 package com.marvelsassemble.authenticate;
 
+import com.marvelsassemble.utils.BCrypt;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,19 +20,19 @@ public class UserAuthService {
 
     @Autowired
     UserAuthRepository userAuthRepository;
+    private Environment env;
 
     public void createAvenger(User user, HttpServletResponse response ) {
         if (!userAuthRepository.exists(user.getUname())) {
-            String pass = user.getPassword();
-            user.setPassword("" + pass.hashCode());
+            user.setPassword(BCrypt.hashpw(user.getPassword(),env.getProperty("hashWithSalt")));
             user.setAvenger(true);
             user.setXmen(false);
             user.setBio(cleanHtml(user.getBio()));
             userAuthRepository.save(user);
             response.setStatus(201);
         }
-        else if(userAuthRepository.exists(user.getUname()) && user.isXmen()){
-            if(!user.isAvenger()){
+        else if(userAuthRepository.exists(user.getUname()) && userAuthRepository.findByUname(user.getUname()).isXmen()){
+            if(!userAuthRepository.findByUname(user.getUname()).isAvenger()){
                 User xman = userAuthRepository.findByUname(user.getUname());
                 xman.setAvenger(true);
                 user.setBio(cleanHtml(user.getBio()));
@@ -41,7 +43,7 @@ public class UserAuthService {
                 response.setStatus(403);
             }
         }
-        else if(userAuthRepository.exists(user.getUname()) && user.isAvenger()){
+        else if(userAuthRepository.exists(user.getUname()) && userAuthRepository.findByUname(user.getUname()).isAvenger()){
             response.setStatus(403);
         }
         else{
@@ -51,16 +53,15 @@ public class UserAuthService {
 
     public void createXmen(User user, HttpServletResponse response) {
         if (!userAuthRepository.exists(user.getUname())) {
-            String pass = user.getPassword();
-            user.setPassword("" + pass.hashCode());
+            user.setPassword(BCrypt.hashpw(user.getPassword(),env.getProperty("hashWithSalt")));
             user.setAvenger(false);
             user.setXmen(true);
             user.setBio(cleanHtml(user.getBio()));
             userAuthRepository.save(user);
             response.setStatus(201);
         }
-        else if(userAuthRepository.exists(user.getUname()) && user.isAvenger()){
-            if(!user.isXmen()) {
+        else if(userAuthRepository.exists(user.getUname()) && userAuthRepository.findByUname(user.getUname()).isAvenger()){
+            if(!userAuthRepository.findByUname(user.getUname()).isXmen()) {
                 User avenger = userAuthRepository.findByUname(user.getUname());
                 avenger.setXmen(true);
                 user.setBio(cleanHtml(user.getBio()));
@@ -71,7 +72,7 @@ public class UserAuthService {
                 response.setStatus(403);
             }
         }
-        else if(userAuthRepository.exists(user.getUname()) && user.isXmen()){
+        else if(userAuthRepository.exists(user.getUname()) && userAuthRepository.findByUname(user.getUname()).isXmen()){
             response.setStatus(403);
         }
         else{
@@ -84,7 +85,7 @@ public class UserAuthService {
         if(session.getAttribute("user")!=null) {
             session.invalidate();
             response.setStatus(302);
-            response.setHeader("Location", "http://10.128.3.120:8000/index.html");
+            //response.setHeader("Location", "http://10.128.3.120:8000/index.html");
         }
         else{
             response.setStatus(400);
@@ -101,7 +102,7 @@ public class UserAuthService {
             response.setStatus(409);
             return false;
         }
-        else if(user.getPassword().equals(""+pass.hashCode())){
+        else if(BCrypt.checkpw(pass,user.getPassword())){
             session.setAttribute("user",user.getUname());
             session.setMaxInactiveInterval(0);
             response.setStatus(202);
@@ -122,7 +123,7 @@ public class UserAuthService {
             response.setStatus(409);
             return false;
         }
-        else if(user.getPassword().equals(""+pass.hashCode())){
+        else if(BCrypt.checkpw(pass,user.getPassword())){
             session.setAttribute("user",user.getUname());
             response.setStatus(202);
             return true;
