@@ -10,24 +10,22 @@ import javax.persistence.*;
 public class User {
 
     @Column(name = "email")
-    private String email; //make sure unique
+    private String email;
     @Column(name = "fname")
     private String fname;
     @Column(name = "lname")
     private String lname;
     @Id
     @Column(name = "uname")
-    private String uname; //make sure unique
+    private String uname;
     @Column(name = "powers")
-    private String powers; //check if list is required
+    private String powers;
     @Column(name = "isAvenger")
     private boolean isAvenger;
     @Column(name = "isXmen")
     private boolean isXmen;
-
-
-    @Column(name = "bio")
-    private String bio; //check fo rthe correct datatype
+    @Column(name = "bio", length = 10000)
+    private String bio; //check, fo rthe correct datatype
     @Column(name="password")
     private String password;
 

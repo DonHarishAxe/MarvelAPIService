@@ -1,5 +1,7 @@
 package com.marvelsassemble.squadtodo;
 
+import com.marvelsassemble.authenticate.User;
+import com.marvelsassemble.authenticate.UserAuthRepository;
 import com.marvelsassemble.personaltodo.PersonalToDo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,12 +22,21 @@ public class SquadToDoService {
 
     @Autowired
     private SquadToDoRepository squadToDoRepository;
+    @Autowired
+    private UserAuthRepository userAuthRepository;
 
-    public List<SquadToDo> getAll(String squad, HttpSession session, HttpServletResponse response) {
+    public List<SquadToDo> getAll(HttpSession session, HttpServletResponse response) {
         //check squad string adn apply filte
         if(session.getAttribute("user")!=null) {
             response.setStatus(200);
-            return squadToDoRepository.findBySquad(squad);
+            String name = (String)session.getAttribute("user");
+            User user = userAuthRepository.findByUname(name);
+            List<SquadToDo> resp = new ArrayList<>();
+            if(user.isAvenger())
+                resp.addAll(squadToDoRepository.findBySquad("avengers"));
+            if(user.isXmen())
+                resp.addAll(squadToDoRepository.findBySquad("xmen"));
+            return resp;
         }
         else{
             response.setStatus(403);

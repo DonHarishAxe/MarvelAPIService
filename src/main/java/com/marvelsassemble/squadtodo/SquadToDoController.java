@@ -27,7 +27,7 @@ public class SquadToDoController {
     public List<SquadToDo> getSquadTodo(@PathVariable String squad, HttpSession session, HttpServletResponse response){
         //cleanse the path variable
         //make sure path variabl eis either avenger or xmen nothin gelse
-        return squadTodoService.getAll(squad, session, response);
+        return squadTodoService.getAll(session, response);
     }
 
     @RequestMapping(value="/{squad}/{uname}", method = RequestMethod.POST)

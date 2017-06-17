@@ -42,10 +42,19 @@ public class BioService {
         }
     }
 
-    public String getAllBioService(String squad, String uname, HttpSession session, HttpServletResponse response) {
+    public String getAllBioService(String uname, HttpSession session, HttpServletResponse response) {
         if(session.getAttribute("user")!=null){
-            response.setStatus(200);
-            return bioRepository.findByUname(uname).getBio();
+
+            User user =  bioRepository.findByUname(uname);
+            if(user!=null){
+                response.setStatus(200);
+                return user.getBio();
+            }
+            else{
+                response.setStatus(400);
+                return "Stay back, This mission center wont be hacked";
+            }
+
         }
         else{
             response.setStatus(403);
