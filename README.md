@@ -9,7 +9,7 @@ Check all endpoints contract at Swagger-ui.
 
   - Secured with Sessions. Each API endpoint is secured with checks for open session.
   - Single entry point (API) to open a session with password.
-  - Passwords stored as hash maps with random salt to to beat rainbow table attack
+  - Passwords stored as hash maps with random salt to beat rainbow table attack
   - All submitted HTML files sanitized first then stored and  served.
 
 
