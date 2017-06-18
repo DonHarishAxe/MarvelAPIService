@@ -26,9 +26,9 @@ public class BioController {
         return bioService.getAllUserService(squad, session, response);
     }
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String getBio(HttpSession session, HttpServletResponse response){
-        return bioService.getAllBioService(session, response);
+    @RequestMapping(value="/{uname}", method = RequestMethod.GET)
+    public String getBio(@PathVariable String uname, HttpSession session, HttpServletResponse response){
+        return bioService.getAllBioService(uname, session, response);
     }
 
 }
