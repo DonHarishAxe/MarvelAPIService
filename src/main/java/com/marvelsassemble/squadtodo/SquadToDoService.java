@@ -42,7 +42,7 @@ public class SquadToDoService {
             response.setStatus(403);
             SquadToDo dummy = new SquadToDo();
             dummy.setTodoItem("Get out Now! Sef Destruct in T-10 seconds");
-            dummy.setSetBy("Evil genius Hemant");
+            dummy.setSetBy("Batman");
             dummy.setActive(false);
             dummy.setSquad("Rogue-LoneRanger");
             return Arrays.asList(dummy);

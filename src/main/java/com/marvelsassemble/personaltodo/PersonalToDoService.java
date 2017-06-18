@@ -32,7 +32,7 @@ public class PersonalToDoService {
             response.setStatus(403);
             PersonalToDo dummy = new PersonalToDo();
             dummy.setTodoItem("Get out Now! Self Destruct in T-10 seconds");
-            dummy.setSetBy("Evil genius Hemant");
+            dummy.setSetBy("Batman");
             dummy.setActive(false);
             return Arrays.asList(dummy);
         }
