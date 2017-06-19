@@ -45,6 +45,8 @@ and Clone Xmen and Avenger Mission Control Server.
 ```sh
 $ git clone https://github.com/DonHarishAxe/Marvel
 ```
+Change 'ip' variable in both frontend scripts of both mission control projects to the ip of the machine running the Marvels API service.
+
 Go to Marvles API service folder and download dependencies
 ```sh
 $ cd marlvelsAPIService
